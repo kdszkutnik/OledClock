@@ -1,15 +1,27 @@
 #include "OledDisplay.h"
 
-OledDisplay::OledDisplay() {
-  Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+void OledDisplay::showTime(int hours, int minutes) {
+  setTextSize(4);
+  setTextColor(WHITE);
+  setCursor(4, 15);
+  print(hours);
+  print(showColon());
+  print(minutes);
+  display();
 }
 
-void OledDisplay::showMyLove() {
-  clearDisplay();
-  setTextSize(1);
-  setTextColor(WHITE);
-  setCursor(0, 10);
-  println("Kocham Cie");
-  println("Karolinko!");
-  display();
+char OledDisplay::showColon(void) {
+  unsigned long currentMillis = millis();
+  
+  if (currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;
+
+    if(showColonBool) {
+      showColonBool = 0;
+      return ':';
+    } else {
+      showColonBool = 1;
+      return ' ';
+    }
+  }
 }
