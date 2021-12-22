@@ -1,21 +1,16 @@
-#include "OledDisplay.h"
 #include "Arduino.h"
-#include "RTClib.h"
+#include "OledDisplay.h"
+#include "RtcClock.h"
 
 OledDisplay display(SCREEN_WIDTH, SCREEN_HEIGHT);
-RTC_DS1307 rtc;
-DateTime now;
+RtcClock rtcClock;
 
 void setup() {
   Serial.begin(9600);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  rtc.begin();
-  if (! rtc.isrunning()) {
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-  }
+  rtcClock.begin();
 }
 
 void loop() {
-  now = rtc.now();
-  display.showTime(now.hour(), now.minute());
+  display.showTime(rtcClock.hour(), rtcClock.minute());
 }
