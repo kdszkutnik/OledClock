@@ -5,8 +5,14 @@ void OledDisplay::showTime(int hours, int minutes) {
   setTextSize(4);
   setTextColor(WHITE);
   setCursor(4, 15);
+  if(hours<10) {
+    print(' ');
+  }
   print(hours);
   print(showColon());
+  if(minutes<10) {
+    print(0);
+  }
   print(minutes);
   display();
 }
