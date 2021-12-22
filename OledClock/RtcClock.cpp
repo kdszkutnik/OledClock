@@ -2,7 +2,7 @@
 
 void RtcClock::begin(void) {
   rtc.begin();
-  //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  //rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); // uncomment this line to set a proper time
 }
 
 int RtcClock::hour(void) {
